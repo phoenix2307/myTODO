@@ -7,6 +7,8 @@ type InputPropsType = {
 }
 
 export const Input = (props: InputPropsType) => {
+
+
     return (
             <input value={props.valueInput}
                    onChange={props.changeState}

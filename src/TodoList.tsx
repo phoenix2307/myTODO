@@ -16,7 +16,7 @@ type PropsType = {
     addTask: (newTitle: string) => void
 }
 //
-export function Todolist(props: PropsType) {
+export function TodoList(props: PropsType) {
     const [title, setTitle] = useState('')
     //
     const onchangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -28,7 +28,7 @@ export function Todolist(props: PropsType) {
     }
     const onKeyPressHandler = (event: KeyboardEvent<HTMLInputElement>) => {
         // debugger
-        console.log(event)
+        // console.log(event)
         if (event.key === '\n') {
             props.addTask(title)
             setTitle('')
