@@ -1,4 +1,5 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
+import {Button, TextField} from "@material-ui/core";
 
 type PropsType = {
     callback: (title: string) => void
@@ -29,15 +30,31 @@ export const InputIndependent = (props: PropsType) => {
         }
     }
 
-    return(
+    return (
         <div>
-            <input value={title}
-                   onChange={(e)=>onChangeHandler(e)}
-                   onKeyPress={(e)=>onKeyPressHandler(e)}
-                   className={error ? "error" : ""}
+            <TextField id="outlined-basic"
+                       label={!!error ? 'Title is required' : 'add item'}
+                       variant="outlined"
+                       size={'small'}
+                       error={!!error}
+                       value={title}
+                       onChange={onChangeHandler}
+                       onKeyPress={onKeyPressHandler}
+                       className={error ? "error" : ""}
             />
-            <button onClick={addTask}>+</button>
-            {error && <div className="error-message">{error}</div>}
+            {/*<input value={title}*/}
+            {/*       onChange={(e) => onChangeHandler(e)}*/}
+            {/*       onKeyPress={(e) => onKeyPressHandler(e)}*/}
+            {/*       className={error ? "error" : ""}*/}
+            {/*/>*/}
+            {/*<button onClick={addTask}>+</button>*/}
+            <Button
+                variant="contained"
+                onClick={addTask}
+                size={'small'}
+                color={'primary'}
+                style={{maxWidth: '42px', maxHeight: '42px', minWidth: '42px', minHeight: '42px',}}>+</Button>
+            {/*{error && <div className="error-message">{error}</div>}*/}
         </div>
 
     )

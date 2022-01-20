@@ -1,8 +1,11 @@
 import React, {ChangeEvent, useState, KeyboardEvent} from 'react';
 import {FilterValuesType} from './App';
-import {Button} from "./components/Button";
+import {ButtonIndependent} from "./components/ButtonIndependent";
 import {EditableSpan} from "./components/EditableSpan";
 import {InputIndependent} from "./components/InputIndependent";
+import {Button, ButtonGroup, Checkbox, IconButton} from "@material-ui/core";
+import {Delete} from "@material-ui/icons";
+
 
 export type TaskType = {
     id: string
@@ -55,7 +58,10 @@ export function Todolist(props: PropsType) {
 
         <h3>
             <EditableSpan title={props.title} addItem={(title) => updateTodoListHandler(title)}/>
-            <button onClick={removeTodolist}>x</button>
+            <IconButton onClick={removeTodolist}>
+                <Delete/>
+            </IconButton>
+            {/*<button onClick={removeTodolist}>x</button>*/}
         </h3>
         <InputIndependent callback={(title) => callbackHandler(title)}/>
         <ul>
@@ -63,25 +69,45 @@ export function Todolist(props: PropsType) {
                 props.tasks.map(t => {
                     return <li key={t.id} className={t.isDone ? "is-done" : ""}>
 
-                        <input type="checkbox"
-                               onChange={(e) => onChangeHandlerCheckBox(e, t.id)}
-                               checked={t.isDone}/>
+                        <Checkbox
+                            defaultChecked
+                            size="small"
+                            inputProps={{ 'aria-label': 'checkbox with small size' }}
+                            onChange={(e) => onChangeHandlerCheckBox(e, t.id)}
+                            checked={t.isDone}
+                        />
+
+                        {/*<input type="checkbox"*/}
+                        {/*       onChange={(e) => onChangeHandlerCheckBox(e, t.id)}*/}
+                        {/*       checked={t.isDone}/>*/}
                         <EditableSpan title={t.title} addItem={(title) => updateTaskEditable(t.id, title)}/>
-                        <Button callback={() => onClickHandler(t.id)} name={'x'}/>
+                        <ButtonIndependent callback={() => onClickHandler(t.id)} name={'x'}/>
                     </li>
                 })
             }
         </ul>
         <div>
-            <button className={props.filter === 'all' ? "active-filter" : ""}
-                    onClick={onAllClickHandler}>All
-            </button>
-            <button className={props.filter === 'active' ? "active-filter" : ""}
-                    onClick={onActiveClickHandler}>Active
-            </button>
-            <button className={props.filter === 'completed' ? "active-filter" : ""}
-                    onClick={onCompletedClickHandler}>Completed
-            </button>
+            <ButtonGroup
+            variant={'contained'}
+            size={'small'}
+            disableElevation
+            >
+                <Button
+                    color={props.filter === 'all' ? "secondary" : "primary"}
+                    // className={props.filter === 'all' ? "active-filter" : ""}
+                        onClick={onAllClickHandler}>All
+                </Button>
+                <Button
+                    color={props.filter === 'active' ? "secondary" : "primary"}
+                    // className={props.filter === 'active' ? "active-filter" : ""}
+                        onClick={onActiveClickHandler}>Active
+                </Button>
+                <Button
+                    color={props.filter === 'completed' ? "secondary" : "primary"}
+                    // className={props.filter === 'completed' ? "active-filter" : ""}
+                        onClick={onCompletedClickHandler}>Completed
+                </Button>
+            </ButtonGroup>
         </div>
     </div>
 }
